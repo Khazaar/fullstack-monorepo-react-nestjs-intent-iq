@@ -123,4 +123,10 @@ export class DynamoService {
       return [];
     }
   }
+
+  async updateItem(
+    params: AWS.DynamoDB.DocumentClient.UpdateItemInput
+  ): Promise<AWS.DynamoDB.DocumentClient.UpdateItemOutput> {
+    return this.dynamoDbClient.update(params).promise();
+  }
 }

@@ -11,10 +11,9 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
   const config = new DocumentBuilder()
-    .setTitle('My API title')
-    .setDescription('The description of the API')
+    .setTitle('API')
+    .setDescription('Interract with DynamoDB')
     .setVersion('1.0')
-    .addTag('mytag')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

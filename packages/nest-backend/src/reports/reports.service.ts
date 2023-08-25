@@ -42,6 +42,39 @@ export class ReportsService {
     );
     return reports;
   };
+
+  async modifyReport(
+    id: string,
+    updatedReport: Partial<IReport>
+  ): Promise<IReport> {
+    const params: AWS.DynamoDB.DocumentClient.UpdateItemInput = {
+      TableName: DynamoTableNames.Reports,
+      Key: { id },
+      ExpressionAttributeNames: {},
+      ExpressionAttributeValues: {},
+      UpdateExpression: 'SET',
+      ReturnValues: 'ALL_NEW',
+    };
+
+    Object.entries(updatedReport).forEach(([key, value]) => {
+      if (key !== 'id') {
+        // Don't update the ID
+        params.UpdateExpression += ` #${key} = :${key},`;
+        params.ExpressionAttributeNames[`#${key}`] = key;
+        params.ExpressionAttributeValues[`:${key}`] = value;
+      }
+    });
+
+    params.UpdateExpression = params.UpdateExpression.slice(0, -1); // Remove trailing comma
+
+    try {
+      const result = await this.dynamoService.updateItem(params);
+      return result.Attributes as IReport;
+    } catch (error) {
+      console.error(`Error updating report with ID ${id}:`, error);
+      throw new Error(`Failed to update report with ID ${id}`);
+    }
+  }
 }
 
 const COUNTRIES = ['US', 'CA', 'GB', 'FR', 'DE', 'JP', 'CN', 'BR', 'AU', 'IN'];
