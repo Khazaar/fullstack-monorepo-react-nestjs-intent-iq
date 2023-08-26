@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IReport } from '@shared';
+import { Countries, Categories } from '@shared';
 import { v4 as uuidv4 } from 'uuid';
 import { DynamoService } from '../dynamo/dynamo.service';
 import { DynamoTableNames } from '../assets/enums';
@@ -8,13 +9,16 @@ import { DynamoTableNames } from '../assets/enums';
 export class ReportsService {
   constructor(private readonly dynamoService: DynamoService) {}
   seedReports = async (n: number) => {
+    const m = Math.floor(Math.random() * 8);
+    const clientIdsPool: string[] = Array.from({ length: m }, () => uuidv4());
     const reports: IReport[] = [];
-
     for (let i = 0; i < n; i++) {
       const id = uuidv4();
-      const clientId = uuidv4();
-      const countryId = generateRandomValue(COUNTRIES);
-      const category = generateRandomValue(CATEGORIES);
+      // Randomly select a clientId from the pool
+      const randomIndex = Math.floor(Math.random() * m);
+      const clientId = clientIdsPool[randomIndex];
+      const countryId = generateRandomValue(Object.values(Countries));
+      const category = generateRandomValue(Object.values(Categories));
       const creationDate = generateRandomDate(new Date(2020, 0, 1), new Date());
       const report: IReport = {
         id,
@@ -37,10 +41,15 @@ export class ReportsService {
     return reports;
   };
   getAllReports = async () => {
-    const reports = await this.dynamoService.getAllItems(
+    const allReports = await this.dynamoService.getAllItems(
       DynamoTableNames.Reports
     );
-    return reports;
+
+    const randomCount = Math.floor(Math.random() * allReports.length);
+    const shuffled = allReports.sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, randomCount);
+
+    return allReports;
   };
 
   async modifyReport(
@@ -76,15 +85,6 @@ export class ReportsService {
     }
   }
 }
-
-const COUNTRIES = ['US', 'CA', 'GB', 'FR', 'DE', 'JP', 'CN', 'BR', 'AU', 'IN'];
-const CATEGORIES = [
-  'Finance',
-  'Health',
-  'Technology',
-  'Education',
-  'Entertainment',
-];
 
 const generateRandomValue = (values: string[]) => {
   return values[Math.floor(Math.random() * values.length)];

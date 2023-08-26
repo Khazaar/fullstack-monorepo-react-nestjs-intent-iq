@@ -9,7 +9,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 4000;
+  app.enableCors({
+    origin: 'http://localhost:4200', // React app's origin
+  });
   const config = new DocumentBuilder()
     .setTitle('API')
     .setDescription('Interract with DynamoDB')

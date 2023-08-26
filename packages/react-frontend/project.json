@@ -15,10 +15,7 @@
         "baseHref": "/",
         "main": "packages/react-frontend/src/main.tsx",
         "tsConfig": "packages/react-frontend/tsconfig.app.json",
-        "assets": [
-          "packages/react-frontend/src/favicon.ico",
-          "packages/react-frontend/src/assets"
-        ],
+        "assets": ["packages/react-frontend/src/assets"],
         "styles": [],
         "scripts": [],
         "isolatedConfig": true,
