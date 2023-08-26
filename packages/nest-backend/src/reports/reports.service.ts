@@ -30,7 +30,6 @@ export class ReportsService {
       // Add report to DynamoDB
       try {
         await this.dynamoService.putItem(DynamoTableNames.Reports, report);
-        console.log(`Report with ID ${id} added successfully`);
       } catch (error) {
         console.error(`Error adding report with ID ${id}:`, error);
       }

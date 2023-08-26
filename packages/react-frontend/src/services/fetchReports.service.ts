@@ -4,7 +4,7 @@ import { IReport } from '@shared';
 
 export const fetchReports = async () => {
   // Randomly generating a number for n (for example, between 10 and 100, but you can adjust this range)
-  const n = Math.floor(Math.random() * 21) + 1; // Random number between 10 and 100
+  const n = Math.floor(Math.random() * 51) + 10; // Random number between 10 and 100
 
   const response = await fetch(`${BACKEND_URL}/reports/seed?count=${n}`, {
     method: 'POST',

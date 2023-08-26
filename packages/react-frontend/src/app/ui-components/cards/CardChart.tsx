@@ -1,15 +1,20 @@
 import { Box, Card, Divider, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
+import { useAppContext } from 'packages/react-frontend/src/context/appStateContextProvider';
 import React from 'react';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 interface CardChartProps {
   title: string;
   subtitle: string;
   chart: React.ReactNode;
-  footerText: string;
 }
 
 const CardChart: React.FC<CardChartProps> = (props: CardChartProps) => {
+  const appContext = useAppContext();
+  const footerString = `Starting from ${
+    appContext.startDate ? appContext.startDate.toString() : ''
+  }`;
   return (
     <Card
       sx={{
@@ -30,8 +35,9 @@ const CardChart: React.FC<CardChartProps> = (props: CardChartProps) => {
         <Typography variant="body2">{props.subtitle}</Typography>
       </Box>
       <Divider />
-      <Box>
-        <Typography variant="body2">{props.footerText}</Typography>
+      <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+        <AccessTimeIcon />
+        <Typography variant="body2">{footerString}</Typography>
       </Box>
     </Card>
   );

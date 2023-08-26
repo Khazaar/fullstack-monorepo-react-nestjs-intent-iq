@@ -13,28 +13,50 @@ const CardDigit: React.FC<CardDigitProps> = (props: CardDigitProps) => {
   return (
     <Card
       sx={{
-        display: 'flex',
-        flexDirection: 'row',
         minWidth: '250px',
         padding: 1,
         overflow: 'visible',
+        minHeight: '75px',
       }}
     >
-      <Box sx={{ marginTop: -2 }}>{props.image}</Box>
-
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'flex-end',
           width: '100%',
         }}
       >
-        <Typography variant="body2">{props.title}</Typography>
-        <Typography variant="h5">{props.digit}</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+          }}
+        >
+          <Box sx={{ marginTop: -2 }}>{props.image}</Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              justifyContent: 'flex-end',
+              width: '100%',
+            }}
+          >
+            <Typography variant="body2">{props.title}</Typography>
+            <Typography variant="h5">{props.digit}</Typography>
+          </Box>
+        </Box>
+        {props.footer && (
+          <Box
+            sx={{
+              display: 'flex',
+            }}
+          >
+            <Divider />
+            <Box>{props.footer}</Box>
+          </Box>
+        )}
       </Box>
-      {props.footer && <Divider />}
-      {props.footer && <Box>{props.footer}</Box>}
     </Card>
   );
 };

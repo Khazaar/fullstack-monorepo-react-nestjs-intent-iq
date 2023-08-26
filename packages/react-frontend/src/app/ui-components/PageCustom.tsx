@@ -35,7 +35,7 @@ export const PageCustom: React.FC<PageCuntomProps> = (
         sx={{
           display: 'flex',
           width: '100%',
-          height: '100%',
+
           gap: 4,
         }}
       >

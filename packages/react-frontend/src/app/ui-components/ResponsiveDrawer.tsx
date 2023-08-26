@@ -21,6 +21,7 @@ import AdUnitsIcon from '@mui/icons-material/AdUnits';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   BrowserRouter,
+  Navigate,
   Route,
   Routes,
   useLocation,
@@ -28,7 +29,7 @@ import {
 } from 'react-router-dom';
 import Dashboard from '../page-components/Dashboard';
 import { UserProfile } from '../page-components/UserProfile';
-import { TableList } from '../page-components/TableList';
+import TableList from '../page-components/TableList';
 import { colorStyles } from '../../assets/styles/theme';
 
 const drawerWidth = 240;
@@ -178,6 +179,7 @@ export default function ResponsiveDrawer() {
           <Route path="/dashboard" element={<Dashboard></Dashboard>} />
           <Route path="/user-profile" element={<UserProfile></UserProfile>} />
           <Route path="/table-list" element={<TableList></TableList>} />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </Box>
     </Box>

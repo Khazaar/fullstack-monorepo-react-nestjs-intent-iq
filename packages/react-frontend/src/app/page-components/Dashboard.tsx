@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageCustom } from '../ui-components/PageCustom';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import CardDigit from '../ui-components/cards/CardDigit';
 import copyImage from '../../assets/images/copy-icon-png-19.jpg';
 import storeImage from '../../assets/images/store-icon.png';
@@ -13,6 +13,8 @@ import { fetchReports } from '../../services/fetchReports.service';
 import CardChart from '../ui-components/cards/CardChart';
 import LineChart from '../ui-components/charts/LineChart';
 import DateSetter from '../ui-components/DateSetter';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import UpdateIcon from '@mui/icons-material/Update';
 
 const Dashboard: React.FC = () => {
   const appContext = useAppContext();
@@ -84,6 +86,14 @@ const Dashboard: React.FC = () => {
                 alt="Partner count"
               />
             }
+            footer={
+              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                <CalendarMonthIcon />
+                <Typography variant="body2">{`Since ${
+                  appContext.startDate ? appContext.startDate.toString() : ''
+                }`}</Typography>
+              </Box>
+            }
           />
           <CardDigit
             title="Countries count"
@@ -115,6 +125,12 @@ const Dashboard: React.FC = () => {
                 alt="Reports rate"
               />
             }
+            footer={
+              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                <UpdateIcon />
+                <Typography variant="body2">Per day</Typography>
+              </Box>
+            }
           />
         </Box>
         <Box
@@ -135,7 +151,6 @@ const Dashboard: React.FC = () => {
                 backgroundColor={colorStyles.green}
               />
             }
-            footerText="starting from"
           />
           <CardChart
             title="Breakdown by categories"
@@ -146,7 +161,6 @@ const Dashboard: React.FC = () => {
                 backgroundColor={colorStyles.orange}
               />
             }
-            footerText="starting from"
           />
           <CardChart
             title="Breakdown by countries"
@@ -157,7 +171,6 @@ const Dashboard: React.FC = () => {
                 backgroundColor={colorStyles.red}
               />
             }
-            footerText="starting from"
           />
         </Box>
       </Box>

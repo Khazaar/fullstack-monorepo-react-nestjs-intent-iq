@@ -17,9 +17,7 @@ const DateSetter: React.FC = observer(() => {
         <DatePicker
           label="Start Date"
           value={dayjs(appContext.startDate)}
-          onChange={(date) =>
-            appContext.setStartDate(date ? date.toDate() : null)
-          }
+          onChange={(date) => appContext.setStartDate(date!.toDate())}
           sx={{
             backgroundColor: colorStyles.greyLight,
             '& .MuiInputLabel-root': {
@@ -34,9 +32,7 @@ const DateSetter: React.FC = observer(() => {
         <DatePicker
           label="End Date"
           value={dayjs(appContext.endDate)}
-          onChange={(date) =>
-            appContext.setEndDate(date ? date.toDate() : null)
-          }
+          onChange={(date) => appContext.setEndDate(date!.toDate())}
           sx={{
             backgroundColor: colorStyles.greyLight,
             '& .MuiInputLabel-root': {

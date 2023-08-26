@@ -84,7 +84,6 @@ export class DynamoService {
 
     try {
       await this.dynamoDbClient.put(params).promise();
-      console.log('Item added successfully');
     } catch (error) {
       console.error('Error adding item:', error);
     }

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  dynamodb:
+    image: amazon/dynamodb-local
+    ports:
+      - '8000:8000'
+    command: '-jar DynamoDBLocal.jar -sharedDb'
+    volumes:
+      - dynamodb-data:/home/dynamodblocal
+    environment:
+      - AWS_ACCESS_KEY_ID=dummyaccess
+      - AWS_SECRET_ACCESS_KEY=dummysecret
+      - AWS_DEFAULT_REGION=us-west-2
+
+volumes:
+  dynamodb-data:

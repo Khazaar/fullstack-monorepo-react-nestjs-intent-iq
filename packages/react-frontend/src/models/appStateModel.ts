@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { ReportModel } from './reportModel';
 import { ILineChartData } from '../app/ui-components/charts/LineChart';
-import { Categories } from '@shared';
+import { Categories, IReport } from '@shared';
 
 export enum Days {
   Sunday = 'S',
@@ -16,16 +16,24 @@ export enum Days {
 export class AppStateModel {
   reports: ReportModel[] = [];
   isReportsLoading: boolean = false;
-  startDate: Date | null = null;
-  endDate: Date | null = null;
+  startDate: Date = new Date();
+  endDate: Date = new Date();
+  tableSortOrder: 'asc' | 'desc' = 'asc';
+  tableOrderBy: keyof IReport = 'creationDate';
   constructor() {
     makeAutoObservable(this);
   }
-  setStartDate(date: Date | null) {
+  setSortOrder(order: 'asc' | 'desc') {
+    this.tableSortOrder = order;
+  }
+  setOrderBy(sortBy: keyof IReport) {
+    this.tableOrderBy = sortBy;
+  }
+  setStartDate(date: Date) {
     this.startDate = date;
   }
 
-  setEndDate(date: Date | null) {
+  setEndDate(date: Date) {
     this.endDate = date;
   }
   setReports(reports: ReportModel[]) {
@@ -51,8 +59,6 @@ export class AppStateModel {
       this.endDate = latestDate;
     } else {
       // If there are no reports, set startDate and endDate to null or any default value you prefer
-      this.startDate = null;
-      this.endDate = null;
     }
   }
 
